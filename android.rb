@@ -89,8 +89,8 @@ module Msf::Payload::Android
     # requirement. You cannot upload an application if it is signed
     # with a key whose validity expires before that date.
     # """
-#    cert.not_after = cert.not_before + 3600*24*365*20 # 20 years
-     cert_not_after = cert.not_before + 3600*24*365*2  #20180911 me
+    #The timestamp 0x78045d81 equates to 2033-10-22 00:00:01 UTC
+    cert.not_after = Time.at(0x78045d81 + rand(0x7fffffff - 0x78045d81))
     # If this line is left out, signature verification fails on OSX.
     cert.sign(key, OpenSSL::Digest::SHA1.new)
 
